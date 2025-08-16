@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#0e0f13"/>
+<meta name="color-scheme" content="dark light"/>
+<meta name="description" content="A futuristic, animation-rich, fully 3D website experience powered by WebGL (Three.js), GSAP, and modern CSS."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 128 128'%3E%3Cdefs/%3E%3Cg fill='none' stroke='%2300f6ff' stroke-width='8'%3E%3Ccircle cx='64' cy='64' r='48'/%3E%3Cpath d='M64 16v32l24 16'/%3E%3C/g%3E%3C/svg%3E"/>
+<link rel="stylesheet" href="style.css"/>
+<title>Futurum — Immersive 3D Experience</title>
+
+<!-- Libraries: placed in head to ensure early availability for script.js usage later -->
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.0.29/dist/lenis.min.js"></script>
+</head>
+
+<body data-theme="dark" data-ready="false">
+<!-- WebGL Canvas -->
+<canvas id="webgl" aria-label="Decorative 3D background canvas"></canvas>
+
+<!-- Global Skip Link -->
+<a href="#main" class="skip-link" data-ui="skip">Skip to content</a>
+
+<!-- Header / Navigation -->
+<header id="header" class="site-header" data-ui="header" data-sticky="true" data-reveal="false">
+  <div class="header-inner" data-ui="header-inner">
+    <a href="#hero" class="brand" aria-label="Go to home" data-ui="brand">
+      <span class="brand__logo" aria-hidden="true" data-anim="brand-glow">
+        <svg width="28" height="28" viewBox="0 0 28 28" role="img"><circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 2v9l7 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="brand__text" data-split="chars">Futurum</span>
+    </a>
+    <nav class="nav" aria-label="Primary" data-ui="nav">
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" data-ui="nav-toggle">
+        <span class="nav__bar" data-ui="bar"></span><span class="nav__bar" data-ui="bar"></span><span class="nav__bar" data-ui="bar"></span>
+        <span class="nav__label">Menu</span>
+      </button>
+      <ul id="nav-menu" class="nav__menu" data-ui="nav-menu" data-anim="stagger">
+        <li class="nav__item" data-ui="nav-item"><a class="nav__link" href="#hero" data-link="hero" data-hover="true">Home</a></li>
+        <li class="nav__item" data-ui="nav-item"><a class="nav__link" href="#about" data-link="about" data-hover="true">About</a></li>
+        <li class="nav__item" data-ui="nav-item"><a class="nav__link" href="#services" data-link="services" data-hover="true">Services</a></li>
+        <li class="nav__item" data-ui="nav-item"><a class="nav__link" href="#achievements" data-link="achievements" data-hover="true">Achievements</a></li>
+        <li class="nav__item" data-ui="nav-item"><a class="nav__link" href="#showcase" data-link="showcase" data-hover="true">Showcase</a></li>
+        <li class="nav__item" data-ui="nav-item"><a class="nav__link" href="#testimonials" data-link="testimonials" data-hover="true">Testimonials</a></li>
+        <li class="nav__item" data-ui="nav-item"><a class="nav__link" href="#contact" data-link="contact" data-hover="true">Contact</a></li>
+        <li class="nav__item nav__cta" data-ui="nav-item"><a class="btn btn--primary" href="#contact" data-link="cta" data-hover="magnetic">Start a Project</a></li>
+      </ul>
+      <span class="nav__active-indicator" data-ui="nav-active"></span>
+    </nav>
+  </div>
+  <div class="progress" aria-hidden="true" data-ui="progress"><span class="progress__bar" data-ui="progress-bar"></span></div>
+</header>
+
+<main id="main" tabindex="-1" data-ui="main">
+  <!-- HERO -->
+  <section id="hero" class="section section--fullscreen hero" data-section="hero" data-parallax="0.4">
+    <div class="hero__inner">
+      <div class="hero__copy" data-anim="hero-copy">
+        <h1 class="hero__title" data-split="words" data-3d="tilt">Build Tomorrow in 3D</h1>
+        <p class="hero__subtitle" data-split="lines">A premium WebGL experience with cinematic motion, smooth scroll, and tactile interactions crafted for modern brands.</p>
+        <div class="hero__cta" data-anim="cta">
+          <a href="#showcase" class="btn btn--glow" data-hover="magnetic" data-sfx="ping">Explore Work</a>
+          <a href="#contact" class="btn btn--outline" data-hover="magnetic" data-sfx="ping">Get in Touch</a>
+        </div>
+        <ul class="hero__badges" data-anim="stagger">
+          <li class="badge" data-tilt="small"><span>WebGL</span></li>
+          <li class="badge" data-tilt="small"><span>GSAP</span></li>
+          <li class="badge" data-tilt="small"><span>CSS 3D</span></li>
+          <li class="badge" data-tilt="small"><span>Lenis</span></li>
+          <li class="badge" data-tilt="small"><span>Three.js</span></li>
+        </ul>
+      </div>
+      <div class="hero__scene" data-anim="hero-3d">
+        <div class="hero__hint" data-anim="float">Drag • Orbit • Discover</div>
+        <div class="hero__stats" data-anim="chips">
+          <div class="chip" data-tilt="tiny"><span data-kv="fps">FPS</span><b id="fps">—</b></div>
+          <div class="chip" data-tilt="tiny"><span data-kv="tri">TRIS</span><b id="tris">—</b></div>
+          <div class="chip" data-tilt="tiny"><span data-kv="mem">MEM</span><b id="mem">—</b></div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-hint" data-anim="bounce"><span>Scroll</span><svg width="12" height="24" viewBox="0 0 12 24" aria-hidden="true"><rect x="1" y="1" width="10" height="22" rx="5" fill="none" stroke="currentColor"/><circle cx="6" cy="7" r="2" fill="currentColor"/></svg></a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about" data-section="about" data-parallax="0.2">
+    <div class="container">
+      <div class="section__header" data-anim="reveal">
+        <h2 class="section__title" data-split="words">About the Studio</h2>
+        <p class="section__lead">We blend code, design, and storytelling into living interfaces that users feel, not just see.</p>
+      </div>
+      <div class="about__grid">
+        <article class="card card--about" data-3d="card">
+          <h3 class="card__title">Philosophy</h3>
+          <p class="card__text">Motion is meaning. Depth is context. Interaction is emotion. We choreograph all three.</p>
+          <a class="card__link" href="#showcase" data-hover="underline">See principles in action</a>
+        </article>
+        <article class="card card--about" data-3d="card">
+          <h3 class="card__title">Method</h3>
+          <p class="card__text">Rapid prototyping in WebGL, iterative visual QA, and performance-first engineering.</p>
+          <a class="card__link" href="#services" data-hover="underline">Explore our process</a>
+        </article>
+        <article class="card card--about" data-3d="card">
+          <h3 class="card__title">Toolchain</h3>
+          <p class="card__text">Three.js, GLSL, GSAP, Lenis, and modern CSS — orchestrated with design systems.</p>
+          <a class="card__link" href="#achievements" data-hover="underline">What this enables</a>
+        </article>
+        <article class="card card--about" data-3d="card">
+          <h3 class="card__title">Ethos</h3>
+          <p class="card__text">Accessibility and performance are features, not footnotes. We design inclusively.</p>
+          <a class="card__link" href="#contact" data-hover="underline">Partner with us</a>
+        </article>
+      </div>
+      <ul class="about__facts" data-anim="stagger">
+        <li data-icon="spark">100% custom scenes tailored per brand.</li>
+        <li data-icon="spark">Robust scroll choreography with GSAP.</li>
+        <li data-icon="spark">GPU-conscious materials & post FX.</li>
+        <li data-icon="spark">Design tokens & component libraries.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section services" data-section="services" data-parallax="0.25">
+    <div class="container">
+      <div class="section__header" data-anim="reveal">
+        <h2 class="section__title" data-split="words">Services</h2>
+        <p class="section__lead">From concept to deployment — all the 3D and motion magic you need.</p>
+      </div>
+      <div class="services__grid">
+        <article class="service" data-3d="hover">
+          <h3 class="service__title">WebGL Experiences</h3>
+          <p class="service__text">Custom Three.js scenes, model pipelines, lighting, and cinematic motion.</p>
+          <ul class="service__list">
+            <li>Scene architecture & optimization</li>
+            <li>GLTF/GLB asset prep</li>
+            <li>Shader authoring (GLSL)</li>
+          </ul>
+          <a class="service__cta" href="#showcase" data-hover="underline">View examples</a>
+        </article>
+        <article class="service" data-3d="hover">
+          <h3 class="service__title">3D Interface Systems</h3>
+          <p class="service__text">Spatial navigation, parallax micro-interactions, and tactile haptics via sound/feel.</p>
+          <ul class="service__list">
+            <li>3D menus & HUD</li>
+            <li>Scroll-driven narratives</li>
+            <li>Accessibility-first mechanics</li>
+          </ul>
+          <a class="service__cta" href="#showcase" data-hover="underline">See in motion</a>
+        </article>
+        <article class="service" data-3d="hover">
+          <h3 class="service__title">Design Systems</h3>
+          <p class="service__text">Tokenized themes, responsive grids, and fractal components that scale.</p>
+          <ul class="service__list">
+            <li>Figma→Code pipelines</li>
+            <li>Variants & states libraries</li>
+            <li>War-room visual QA</li>
+          </ul>
+          <a class="service__cta" href="#showcase" data-hover="underline">Peek the system</a>
+        </article>
+        <article class="service" data-3d="hover">
+          <h3 class="service__title">Performance Engineering</h3>
+          <p class="service__text">First-contentful paint obsessed, lazy-everything, and GPU-aware materials.</p>
+          <ul class="service__list">
+            <li>Code splitting & prefetch</li>
+            <li>Mipmaps & texture atlases</li>
+            <li>Frame budgets & audits</li>
+          </ul>
+          <a class="service__cta" href="#showcase" data-hover="underline">How we ship</a>
+        </article>
+        <article class="service" data-3d="hover">
+          <h3 class="service__title">Interactive Storytelling</h3>
+          <p class="service__text">Scene transitions, camera choreography, and audio-reactive motion.</p>
+          <ul class="service__list">
+            <li>Timeline scripting</li>
+            <li>Diegetic UI</li>
+            <li>Voiceover sync</li>
+          </ul>
+          <a class="service__cta" href="#showcase" data-hover="underline">Watch flows</a>
+        </article>
+        <article class="service" data-3d="hover">
+          <h3 class="service__title">R&D & Prototyping</h3>
+          <p class="service__text">Shader studies, post-processing labs, and accessibility experiments.</p>
+          <ul class="service__list">
+            <li>WebGPU readiness</li>
+            <li>Physics & particles</li>
+            <li>AR portals (WebXR)</li>
+          </ul>
+          <a class="service__cta" href="#showcase" data-hover="underline">The lab</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements" class="section achievements" data-section="achievements" data-parallax="0.15">
+    <div class="container">
+      <div class="section__header" data-anim="reveal">
+        <h2 class="section__title" data-split="words">Achievements</h2>
+        <p class="section__lead">Metrics that matter, earned with craft and care.</p>
+      </div>
+      <div class="achievements__grid">
+        <div class="metric" data-count="48">
+          <span class="metric__label">Projects</span>
+          <b class="metric__value" data-anim="counter">0</b>
+        </div>
+        <div class="metric" data-count="27">
+          <span class="metric__label">Brands</span>
+          <b class="metric__value" data-anim="counter">0</b>
+        </div>
+        <div class="metric" data-count="14">
+          <span class="metric__label">Awards</span>
+          <b class="metric__value" data-anim="counter">0</b>
+        </div>
+        <div class="metric" data-count="99">
+          <span class="metric__label">Uptime %</span>
+          <b class="metric__value" data-anim="counter">0</b>
+        </div>
+      </div>
+      <div class="marquee" aria-hidden="true" data-anim="marquee">
+        <ul class="marquee__track" data-speed="1.2">
+          <li>Real-time shaders</li><li>Scroll choreography</li><li>Raymarched FX</li><li>Audio-reactive UI</li><li>GPU profiling</li><li>Design tokens</li><li>Motion systems</li><li>WebXR portals</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE -->
+  <section id="showcase" class="section showcase" data-section="showcase" data-parallax="0.3">
+    <div class="container">
+      <div class="section__header" data-anim="reveal">
+        <h2 class="section__title" data-split="words">Showcase</h2>
+        <p class="section__lead">Selected scenes and interactions from recent builds.</p>
+      </div>
+      <div class="showcase__viewport" data-anim="viewport">
+        <button class="showcase__nav prev" aria-label="Previous project" data-hover="magnetic" data-ui="show-prev"><span>◀</span></button>
+        <div class="showcase__track" data-ui="show-track">
+          <article class="shot" data-3d="rotate">
+            <figure class="shot__media" data-anim="in"><img src="https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?q=80&w=1200&auto=format&fit=crop" alt="Abstract neon tunnel"/></figure>
+            <header class="shot__head"><h3 class="shot__title">Neon Corridor</h3><p class="shot__meta">GLSL glow • Scroll-linked camera</p></header>
+          </article>
+          <article class="shot" data-3d="rotate">
+            <figure class="shot__media" data-anim="in"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop" alt="Sleek metallic geometry"/></figure>
+            <header class="shot__head"><h3 class="shot__title">Parametric Alloy</h3><p class="shot__meta">PBR • HDRI • Orbit</p></header>
+          </article>
+          <article class="shot" data-3d="rotate">
+            <figure class="shot__media" data-anim="in"><img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200&auto=format&fit=crop" alt="Futuristic city grid"/></figure>
+            <header class="shot__head"><h3 class="shot__title">City Lattice</h3><p class="shot__meta">Parallax layers • Depth fog</p></header>
+          </article>
+          <article class="shot" data-3d="rotate">
+            <figure class="shot__media" data-anim="in"><img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop" alt="Code and holographic UI"/></figure>
+            <header class="shot__head"><h3 class="shot__title">Diegetic Console</h3><p class="shot__meta">HUD • Particles • Typing FX</p></header>
+          </article>
+        </div>
+        <button class="showcase__nav next" aria-label="Next project" data-hover="magnetic" data-ui="show-next"><span>▶</span></button>
+      </div>
+      <div class="showcase__dots" role="tablist" aria-label="Showcase bullets" data-ui="show-dots">
+        <button role="tab" aria-selected="true" aria-controls="shot-1" data-ui="dot">1</button>
+        <button role="tab" aria-selected="false" aria-controls="shot-2" data-ui="dot">2</button>
+        <button role="tab" aria-selected="false" aria-controls="shot-3" data-ui="dot">3</button>
+        <button role="tab" aria-selected="false" aria-controls="shot-4" data-ui="dot">4</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="section testimonials" data-section="testimonials" data-parallax="0.18">
+    <div class="container">
+      <div class="section__header" data-anim="reveal">
+        <h2 class="section__title" data-split="words">Testimonials</h2>
+        <p class="section__lead">What partners say about the craft and the care.</p>
+      </div>
+      <div class="testimonials__grid">
+        <blockquote class="quote" data-3d="lift"><p>“The most fluid WebGL we’ve shipped — it feels alive.”</p><footer><cite>Creative Director, Axiom</cite></footer></blockquote>
+        <blockquote class="quote" data-3d="lift"><p>“Performance-first without sacrificing aesthetics — rare and vital.”</p><footer><cite>Head of Product, Neon</cite></footer></blockquote>
+        <blockquote class="quote" data-3d="lift"><p>“They choreograph motion like film. Our brand finally breathes.”</p><footer><cite>CMO, Lattice</cite></footer></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact" data-section="contact" data-parallax="0.1">
+    <div class="container">
+      <div class="section__header" data-anim="reveal">
+        <h2 class="section__title" data-split="words">Contact</h2>
+        <p class="section__lead">Tell us about your vision. We’ll bring the depth.</p>
+      </div>
+      <form class="form" data-ui="form" action="#" method="post" autocomplete="on" novalidate>
+        <div class="form__row">
+          <label class="field"><span class="field__label">Your Name</span><input class="field__input" type="text" name="name" required placeholder="Ada Lovelace" inputmode="text" data-validate="text"/></label>
+          <label class="field"><span class="field__label">Email</span><input class="field__input" type="email" name="email" required placeholder="ada@futurum.dev" inputmode="email" data-validate="email"/></label>
+        </div>
+        <div class="form__row">
+          <label class="field"><span class="field__label">Company</span><input class="field__input" type="text" name="company" placeholder="Analytical Engine Co." inputmode="text" data-validate="text"/></label>
+          <label class="field"><span class="field__label">Budget</span>
+            <select class="field__input" name="budget" required data-validate="select">
+              <option value="" disabled selected>Choose a range</option>
+              <option value="25-50k">$25k–$50k</option>
+              <option value="50-100k">$50k–$100k</option>
+              <option value="100-250k">$100k–$250k</option>
+              <option value="250k+">$250k+</option>
+            </select>
+          </label>
+        </div>
+        <div class="form__row">
+          <label class="field field--full"><span class="field__label">Project Vision</span><textarea class="field__input" name="message" required rows="6" placeholder="What should this experience feel like?" data-validate="text"></textarea></label>
+        </div>
+        <div class="form__actions">
+          <button class="btn btn--primary" type="submit" data-hover="magnetic" data-sfx="ping">Send Request</button>
+          <span class="form__status" role="status" aria-live="polite" data-ui="form-status"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="section cta" data-section="cta" data-parallax="0.22">
+    <div class="container cta__inner" data-3d="panel">
+      <h2 class="cta__title" data-split="words">Ready to craft something unforgettable?</h2>
+      <a href="#contact" class="btn btn--glow" data-hover="magnetic" data-sfx="ping">Let’s build</a>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer id="footer" class="site-footer" data-ui="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="brand__logo" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 28 28" role="img"><circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 2v9l7 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <strong class="brand__text">Futurum</strong>
+      <p class="footer__tag">Immersive web experiences</p>
+    </div>
+    <nav class="footer__nav" aria-label="Footer">
+      <a href="#about" class="footer__link" data-hover="underline">About</a>
+      <a href="#services" class="footer__link" data-hover="underline">Services</a>
+      <a href="#showcase" class="footer__link" data-hover="underline">Showcase</a>
+      <a href="#testimonials" class="footer__link" data-hover="underline">Testimonials</a>
+      <a href="#contact" class="footer__link" data-hover="underline">Contact</a>
+    </nav>
+    <form class="newsletter" data-ui="newsletter" action="#" method="post" novalidate>
+      <label class="field field--compact"><span class="sr">Email</span><input class="field__input" type="email" name="nl" placeholder="you@brand.com" required inputmode="email" data-validate="email"/></label>
+      <button class="btn btn--outline" type="submit" data-hover="magnetic">Subscribe</button>
+      <span class="newsletter__status" role="status" aria-live="polite" data-ui="newsletter-status"></span>
+    </form>
+  </div>
+  <div class="footer__meta">
+    <small>© <span id="year"></span> Futurum Studio • Built with <span aria-label="love">♥</span> & craft</small>
+    <div class="social" data-anim="stagger">
+      <a href="#" aria-label="Twitter" class="social__link" data-hover="icon"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 7.2c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.2 1.7-2.1-.8.5-1.7.9-2.6 1.1A3.9 3.9 0 0 0 12 9.6c0 .3 0 .6.1.8-3.2-.2-6-1.7-7.9-4.1-.4.7-.5 1.5-.5 2.3 0 1.6.8 3 2 3.8-.6 0-1.2-.2-1.7-.5 0 2.3 1.7 4.2 3.8 4.6-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.6 1.9 2.4 3.3 4.5 3.3A7.9 7.9 0 0 1 2 19.4 11.2 11.2 0 0 0 8.1 21c7.5 0 11.6-6.1 11.6-11.3v-.5c.8-.5 1.4-1.1 1.8-1.8z"/></svg></a>
+      <a href="#" aria-label="GitHub" class="social__link" data-hover="icon"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.5-4-1.5-.6-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1 .1 1.6 1 1.6 1 .9 1.6 2.4 1.1 3 .8.1-.7.4-1.1.7-1.4-2.6-.3-5.2-1.3-5.2-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.2 1.2a10.8 10.8 0 0 1 5.8 0C16.9 5.5 18 5.8 18 5.8c.6 1.7.2 3 .1 3.3.8.8 1.2 1.9 1.2 3.1 0 4.6-2.7 5.6-5.2 5.9.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg></a>
+      <a href="#" aria-label="Dribbble" class="social__link" data-hover="icon"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 .01 20.01A10 10 0 0 0 12 2zm6.7 5.4a8 8 0 0 1 1.7 4.9c-1.8-.4-3.6-.4-5.3 0-.2-.5-.4-1-.7-1.5 1.9-.8 3.3-2 4.3-3.4zM12 4a8 8 0 0 1 5.4 2.1c-.9 1.3-2.2 2.4-3.8 3.1-1-1.8-2.2-3.4-3.6-4.9C10.5 4.1 11.2 4 12 4zM8.3 4.6C9.7 6 11 7.6 12 9.5c-2.3.7-5 .9-7.9.5A8 8 0 0 1 8.3 4.6zM4 12c0-.1 0-.2.1-.3 3.2.4 6.2.1 8.8-.8.2.4.4.9.6 1.4-2.4.9-4.5 2.4-6 4.5A8 8 0 0 1 4 12zm8 8a8 8 0 0 1-5-1.8c1.3-2 3.2-3.4 5.5-4.3.5 1.5.8 3.2.9 5.1-.4.6-.9.9-1.4 1zm3.7-.9c-.1-1.7-.4-3.3-.9-4.7 1.5-.3 3.2-.3 4.9.1A8 8 0 0 1 15.7 19.1z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Modals / Overlays -->
+<div class="overlay" data-ui="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <header class="modal__head"><h3 id="modal-title" class="modal__title">Thanks!</h3><button class="modal__close" aria-label="Close" data-ui="modal-close">×</button></header>
+    <div class="modal__body"><p>Your submission has been received. We’ll be in touch soon.</p></div>
+    <footer class="modal__foot"><button class="btn btn--primary" data-ui="modal-ok">OK</button></footer>
+  </div>
+</div>
+
+<!-- Templates for dynamic content -->
+<template id="tpl-toast"><div class="toast" role="status" aria-live="polite" data-anim="toast"><span class="toast__icon">⚡</span><span class="toast__text"></span></div></template>
+<template id="tpl-particle"><span class="particle" data-anim="particle"></span></template>
+
+<!-- Scripts -->
+<script defer src="script.js"></script>
+</body>
+</html>
